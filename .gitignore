@@ -1,0 +1,18 @@
+#Java
+!cls/*.class
+
+## Gradle
+bin/
+build/
+.gradle
+
+## Eclipse 
+.classpath
+.project
+.settings
+
+## OS X
+.DS_Store
+
+## swap files
+*.swp
