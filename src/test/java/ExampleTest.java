@@ -12,9 +12,9 @@ public class ExampleTest {
      */
     @Test
     public void setProgressNodeAndEdgeCoverage() {
-        Main main = new Main();
-        main.haveAFarm();
-        assertTrue("haveAFarm", main.oldMacDonaldHadAFarm);
+        Simulation simulation = new Simulation();
+        simulation .haveAFarm();
+        assertTrue("haveAFarm", simulation.oldMacDonaldHadAFarm);
     }
     
 }
