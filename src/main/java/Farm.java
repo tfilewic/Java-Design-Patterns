@@ -1,3 +1,6 @@
+
+
+
 /**
  * Common interface for all farms.
  * The "Product" of the Factory pattern
@@ -16,6 +19,8 @@ public interface Farm {
      */
     void earn();
    
+    
+    void addFarmer(Farmer farmer);
    
     //TODO : concrete implementations
 }

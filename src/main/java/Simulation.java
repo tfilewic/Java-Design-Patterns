@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,12 +23,18 @@ public class Simulation {
     }
     
     
-    
+    private ArrayList<Farm> farms = new ArrayList<Farm>(); //the list of farms
     int daysToArmageddon = 10;  //number of days to simulate
     boolean isDay = true;       //the time of day
     Timer timer = new Timer();  //timer to run the simulation
     final int start = 2000;     //simulation start time
     final int interval = 2000;  //update frequency
+    
+    
+    
+    public Simulation(){
+        //instantiate Farm and add to farms
+    }
     
     /**
      * Ends the simulation.
@@ -65,6 +72,9 @@ public class Simulation {
           }, start, interval); 
     }
     
+    public void addFarm(Farm farm) {
+        farms.add(farm);
+    }
     
     
     /**
