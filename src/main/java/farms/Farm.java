@@ -1,5 +1,5 @@
-
-
+package farms;
+import simulation.Farmer;
 
 /**
  * Common interface for all farms.
@@ -12,16 +12,11 @@ public interface Farm {
     /**
      * Updates the state of the farm by one 12hr tick.
      */
-    void tick(boolean isDay);
-    
-    /**
-     * Earns the farm passive income from its operations;
-     */
-    void earn();
+    void update(boolean isDay);
    
     
     void addFarmer(Farmer farmer);
-   
-    //TODO : concrete implementations
+    
+    void setId(int id);
 }
  

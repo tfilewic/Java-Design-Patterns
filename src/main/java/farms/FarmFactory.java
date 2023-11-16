@@ -1,3 +1,7 @@
+package farms;
+import simulation.Farmer;
+import simulation.Simulation;
+
 /**
  * Class to create Farm objects.
  * A concrete "Creator" class in the Factory pattern
@@ -6,6 +10,7 @@
 public class FarmFactory {
     
     Simulation simulation;
+    static int lastId = 0;
     
     /**
      * Adds a new farm to the simulation.
@@ -18,7 +23,7 @@ public class FarmFactory {
         }
        
         Farm farm = createFarm(type);
-        
+        farm.setId(++lastId);
         for (Farmer farmer : farmers) {
             farm.addFarmer(farmer);
         }
@@ -36,17 +41,11 @@ public class FarmFactory {
     private Farm createFarm(FarmType type) {
         Farm farm;
         switch(type) {
-            case BEEF:
-                farm = new BeefFarm();
-                break;
             case DIARY:
                 farm = new DairyFarm();
                 break;
             case GRAIN:
                 farm = new GrainFarm();
-                break;
-            case OILSEED:
-                farm = new OilseedFarm();
                 break;
             case SHEEP:
                 farm = new SheepFarm();
@@ -55,11 +54,10 @@ public class FarmFactory {
                 farm = new VegetableFarm();
                 break;
             default:
-                farm = new BeefFarm();
+                farm = new DairyFarm();
                 break;
             }
         return farm;
     }
     
-    //TODO : concrete implementations
 }

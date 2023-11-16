@@ -1,19 +1,25 @@
+package farms;
 
 
 import java.util.LinkedList;
 
+import simulation.Farmer;
+
 
 public abstract class BasicFarm implements Farm {
     
+    int id = -1;
     String farmType;
     int age = 0;
-    int accountBalance;
+    int accountBalance = 0;
     int acreage = 160;
+    int farmerCount = 0;
     LinkedList<Farmer> farmers = new LinkedList<Farmer>();
     
+    protected abstract void earn();
     
     @Override
-    public void tick(boolean isDay){
+    public void update(boolean isDay){
         if (!isDay) {
             //TODO predators and disease
         }
@@ -28,12 +34,15 @@ public abstract class BasicFarm implements Farm {
     @Override
     public void addFarmer(Farmer farmer) {
         farmers.add(farmer);
+        farmerCount = farmers.size();
     }
     
     @Override
-    public abstract void earn();
-    
-
+    public void setId(int newId){
+        if (id == -1) {
+            id = newId;
+        }
+    }
     
     private void display() {
         //TODO
@@ -53,6 +62,8 @@ public abstract class BasicFarm implements Farm {
             farmers.add(new Farmer());
         }
     }
+    
+
     
     
 }

@@ -2,6 +2,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import simulation.Simulation;
+
 /**
  * Example test class to ensure project is set up correctly.
  */

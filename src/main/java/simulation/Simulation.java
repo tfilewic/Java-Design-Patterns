@@ -1,6 +1,9 @@
+package simulation;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import farms.Farm;
 
 /**
  * The Main class for assignment 5.
@@ -23,14 +26,16 @@ public class Simulation {
     }
     
     
-    private ArrayList<Farm> farms = new ArrayList<Farm>(); //the list of farms
-    int daysToArmageddon = 10;  //number of days to simulate
-    boolean isDay = true;       //the time of day
-    Timer timer = new Timer();  //timer to run the simulation
-    final int start = 2000;     //simulation start time
-    final int interval = 2000;  //update frequency
+    private ArrayList<Farm> farms = new ArrayList<Farm>();  //the list of farms
+    int daysToArmageddon = 10;                              //total number of days to simulate
+    private static boolean isDay = true;                    //the time of day
+    Timer timer = new Timer();                              //timer to run the simulation
+    final int start = 2000;                                 //simulation start time
+    final int interval = 2000;                              //update frequency
     
-    
+    public static boolean isDay() {
+        return isDay;
+    }
     
     public Simulation(){
         //instantiate Farm and add to farms

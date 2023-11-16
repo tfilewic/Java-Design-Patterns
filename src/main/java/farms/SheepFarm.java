@@ -1,13 +1,13 @@
+package farms;
 
-
-
-public class GrainFarm extends CropFarm{
+public class SheepFarm extends LivestockFarm {
 
     @Override
     public void earn() {
         // TODO Auto-generated method stub
         
     }
+
 
 
 }

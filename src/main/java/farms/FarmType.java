@@ -1,5 +1,4 @@
-
-
+package farms;
 
 /**
  * Enumeration for the types of farms;
@@ -9,8 +8,6 @@
 public enum FarmType {
     GRAIN,
     VEGETABLE,
-    OILSEED,
     DIARY,
-    BEEF,
     SHEEP
 }

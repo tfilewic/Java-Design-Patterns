@@ -7,7 +7,7 @@ apply plugin: 'application'
 apply plugin: 'jacoco'
 
 
-mainClassName = 'Simulation'
+mainClassName = 'simulation.Simulation'
 
 run {
     standardInput = System.in

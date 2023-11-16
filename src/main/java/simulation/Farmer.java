@@ -1,3 +1,4 @@
+package simulation;
 /**
  * A farmer
  * @author tfilewic

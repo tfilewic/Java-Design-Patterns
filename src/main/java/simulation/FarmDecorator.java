@@ -1,3 +1,6 @@
+package simulation;
+import farms.Farm;
+
 /**
  * Interface to allow a farm to earn extra income from supplemental operations.
  * The "Decorator" class from the Decorator pattern.
@@ -11,15 +14,15 @@ public abstract class FarmDecorator implements Farm {
     /**
      * Earns extra income from supplemental operations.
      */
-    protected abstract void earnExtra();
+    protected abstract void doExtra();
     
     /**
      * Adds the additional income to the farm's base earnings.
      */
     @Override
-    public void earn() {
-        farm.earn();
-        earnExtra();
+    public void update(boolean isDay) {
+        farm.update(isDay);
+        doExtra();
     }
     
     //TODO : concrete implementations  (examples: apiary, market, events rental, 
