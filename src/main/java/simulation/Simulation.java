@@ -27,7 +27,6 @@ public class Simulation {
     }
     
     FarmFactory farmManager;
-    private List<Farm> farms = new LinkedList<Farm>();  //the list of farms
     private int cycle = 0;
     final int daysToArmageddon = 1111;                             //total number of days to simulate
     private static boolean isDay = true;                    //the time of day
@@ -52,7 +51,7 @@ public class Simulation {
     }
     
     public Simulation(){
-        farmManager = new FarmFactory(this);
+        farmManager = new FarmFactory();
         farmManager.addFarm(FarmType.DAIRY, new Farmer[] {new Farmer(), new Farmer(), new Farmer()} );
     }
     
@@ -73,9 +72,7 @@ public class Simulation {
             public void run() {
                 //TODO update everything
                 displayCycle();
-                for (Farm farm : farms) {
-                farm.update(isDay);
-                }
+                farmManager.updateFarms(isDay);
                 //advance the simulation one day
                 if (isDay) {
                     cycle++;
@@ -88,10 +85,6 @@ public class Simulation {
                 }
             }, start, interval);
         }
-    
-    public void addFarm(Farm farm) {
-        farms.add(farm);
-    }
     
     
     /**

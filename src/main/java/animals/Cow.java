@@ -15,8 +15,8 @@ public class Cow extends Animal{
 
     @Override
     Animal giveBirth() {
-        // TODO Auto-generated method stub
-        return null;
+        System.out.println("calf born");
+        return new Cow();
     }
     
     /**

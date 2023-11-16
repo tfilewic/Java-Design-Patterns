@@ -1,11 +1,13 @@
 package animals;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Random;
 
 
 public abstract class Animal {
     
-    //TODO observe this
+    private PropertyChangeSupport support;  //Instance to support the Observer pattern
     Animal offspring = null;
     protected String type = "";
     final int fertility;
@@ -14,6 +16,7 @@ public abstract class Animal {
     
     protected Animal() {
         fertility = 3;
+        support = new PropertyChangeSupport(this);
     }
     
     abstract int produce();
@@ -24,8 +27,9 @@ public abstract class Animal {
         if (isDay) {
             age++;
             if (isPregnant())  {
-                System.out.println("NEW BAWBABY");
-                offspring = giveBirth(); 
+                offspring = giveBirth();
+                support.firePropertyChange("birth", null, offspring);
+                offspring = null;
             }  
         } else {
             //do bad things
@@ -50,5 +54,21 @@ public abstract class Animal {
     
     public String getAnimalType() {
         return type;
+    }
+    
+    /**
+     * Adds a PropertyChangeListener to this PropertyChangeSupport.
+     * @param listener The "Observer" of the Observer pattern.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Removes a PropertyChangeListener to this PropertyChangeSupport.
+     * @param listener The "Observer" of the Observer pattern.
+     */
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }

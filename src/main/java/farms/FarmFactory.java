@@ -1,24 +1,29 @@
 package farms;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.LinkedList;
+import java.util.List;
+
 import simulation.Farmer;
-import simulation.Simulation;
 
 /**
  * Class to create Farm objects.
- * A concrete "Creator" class in the Factory pattern
+ * A concrete "Creator" class in the Factory pattern.
+ * An "Observer" for the Observer pattern.                             //TODO implement branching when farm is full
  * @author tfilewic
  */
-public class FarmFactory {
+public class FarmFactory implements PropertyChangeListener{
     
-    Simulation simulation;
+    private List<Farm> farms = new LinkedList<Farm>();  //the list of farms
     int lastId = 0;
     
-    public FarmFactory(Simulation simulation){
-        this.simulation = simulation;
+    public FarmFactory(){
+        
     }
     
     /**
-     * Adds a new farm to the simulation.
-     * @param farmers
+     * Adds a new farm.
+     * @param farmers An array of at least 3 farmers.
      */
     public void addFarm(FarmType type, Farmer[] farmers){
         
@@ -32,7 +37,7 @@ public class FarmFactory {
             farm.addFarmer(farmer);
         }
        
-        simulation.addFarm(farm);   
+        farms.add(farm);   
     }
     
     
@@ -62,6 +67,22 @@ public class FarmFactory {
                 break;
             }
         return farm;
+    }
+
+    /**
+     * Updates all farms by one half cycle.
+     * @param isDay If it is daytime.
+     */
+    public void updateFarms(boolean isDay) {
+        for (Farm farm : farms) {
+            farm.update(isDay);
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

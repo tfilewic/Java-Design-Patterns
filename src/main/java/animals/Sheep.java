@@ -9,6 +9,7 @@ public class Sheep extends Animal {
 
     @Override
     Animal giveBirth() {
+        System.out.println("lamb born");
         return new Sheep();
     }
 

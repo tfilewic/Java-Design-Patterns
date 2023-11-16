@@ -1,6 +1,9 @@
 package animals;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
+import java.util.Queue;
 
 
 
@@ -8,16 +11,17 @@ import java.util.LinkedList;
  * Manages the animals on a farm
  * @author tfilewic
  */
-public class Herd {
+public class Herd implements PropertyChangeListener {
     
     //implements observer to add new animals when born
     
     private LinkedList<Animal> animals;
+    private Queue<Animal> babies;
     
     
     public Herd() {
         animals = new LinkedList<Animal>();
-        System.out.println("herd created with size" + getSize()); 
+        babies = new LinkedList<Animal>();
     }
     /**
      * Uses the herd for income.
@@ -38,6 +42,10 @@ public class Herd {
         for (Animal animal : animals) {
             animal.update(isDay);
         }
+        while (!babies.isEmpty()) {
+            addAnimal(babies.remove());
+        }
+        
         
     }
     
@@ -51,18 +59,32 @@ public class Herd {
     public String getType() {
         String type = "animals";
         if (animals != null && !(animals.isEmpty())) {
-            type = animals.getFirst().getAnimalType();
+            type = animals.peek().getAnimalType();
         }
         return type;
     }
    
     public void addAnimal(Animal animal) {
         animals.add(animal);
+        animal.addPropertyChangeListener(this);
     }
+    
 
     public String display() {
         String description = getSize() + " " + getType();
         return description;
+    }
+    
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String propertyName = evt.getPropertyName();
+        
+        if (propertyName.equals("birth")) {
+            Animal baby = (Animal) evt.getNewValue();
+            babies.add(baby);
+        }
+
+        
     }
     
 }

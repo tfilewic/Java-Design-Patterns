@@ -5,14 +5,19 @@ import java.util.LinkedList;
 
 import simulation.Farmer;
 
-
+/**
+ * 
+ * @author z
+ *
+ */
 public abstract class BasicFarm implements Farm {
-    
+                                                
     protected int id = -1;
     protected FarmType farmType;
     protected int age = 0;
     protected int accountBalance = 0;
     protected int farmerCount = 0;
+    protected boolean isFull;                //TODO implement branching when farm is full  OBSERVER subject
     protected LinkedList<Farmer> farmers = new LinkedList<Farmer>();
     
     protected abstract void earn();
@@ -68,6 +73,7 @@ public abstract class BasicFarm implements Farm {
     protected void hire() {
         final int hiringFrequency = 2;   //TODO fix this to 10
         if (age % hiringFrequency == 0 && age > 0) {
+            System.out.println("farmer hired");
             addFarmer(new Farmer());
         }
     }

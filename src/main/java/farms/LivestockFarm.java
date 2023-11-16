@@ -2,13 +2,21 @@ package farms;
 
 import animals.Herd;
 
+/**
+ * A type of farm consisting of livestock.
+ * 
+ * @author tfilewic
+ */
 public abstract class LivestockFarm extends BasicFarm {
     
-    protected Herd herd = new Herd();
+    protected Herd herd;       //Contains the farm's animals
+
     
     public LivestockFarm() {
         super();
+        herd = new Herd();
     }
+    
     
     @Override
     protected void earn(){
