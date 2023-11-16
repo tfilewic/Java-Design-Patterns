@@ -1,4 +1,6 @@
 package farms;
+import java.beans.PropertyChangeListener;
+
 import simulation.Farmer;
 
 /**
@@ -18,6 +20,7 @@ public interface Farm {
     
     void setId(int id);
     
+    void addPropertyChangeListener(PropertyChangeListener listener);
     
 }
  

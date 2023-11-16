@@ -1,24 +1,27 @@
 package farms;
 
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
+import java.util.Queue;
 
 import simulation.Farmer;
 
 /**
- * 
- * @author z
+ * A simple farm.
+ * @author tfilewic
  *
  */
 public abstract class BasicFarm implements Farm {
-                                                
+
     protected int id = -1;
     protected FarmType farmType;
     protected int age = 0;
     protected int accountBalance = 0;
-    protected int farmerCount = 0;
-    protected boolean isFull;                //TODO implement branching when farm is full  OBSERVER subject
-    protected LinkedList<Farmer> farmers = new LinkedList<Farmer>();
+    protected final int maxFarmers = 9;
+    protected Queue<Farmer> farmers;
+    protected PropertyChangeSupport support;  //Instance to support the Observer pattern
     
     protected abstract void earn();
     
@@ -29,8 +32,8 @@ public abstract class BasicFarm implements Farm {
     public BasicFarm() {
         age = 0;
         accountBalance = 0;
-        farmerCount = 0;
         farmers = new LinkedList<Farmer>();
+        support = new PropertyChangeSupport(this);
     }
     
     @Override
@@ -40,6 +43,7 @@ public abstract class BasicFarm implements Farm {
         }
         if (isDay) {
             earn();
+            branch();
             hire();
             age++;
         }
@@ -50,7 +54,6 @@ public abstract class BasicFarm implements Farm {
     @Override
     public void addFarmer(Farmer farmer) {
         farmers.add(farmer);
-        farmerCount++;
     }
     
     @Override
@@ -60,22 +63,60 @@ public abstract class BasicFarm implements Farm {
         }
     }
     
+    /**
+     * Prints the current state of this farm.
+     */
     public void display() {
         //TODO
         System.out.println(" ID -- Type -- Age -- Balance -- Farmers -- Assets");
         System.out.println("  " + id + "    " + farmType +  "    " + age + "      $" +
-        accountBalance + "        " + farmerCount + "        "  + displayAssets() + "\n");
+        accountBalance + "        " + getFarmerCount() + "        "  + displayAssets() + "\n");
     }
     
     /**
      * Hires a a new farmer every 10 days
      */
     protected void hire() {
-        final int hiringFrequency = 2;   //TODO fix this to 10                                                  //TODO fix this to 10//TODO fix this to 10//TODO fix this to 10//TODO fix this to 10//TODO fix this to 10
+        final int hiringFrequency = 10;
         if (age % hiringFrequency == 0 && age > 0) {
             System.out.println("farmer hired");
             addFarmer(new Farmer());
         }
+    }
+    
+    /**
+     * Notifies Observers if the number of farmers exceeds that maximum and removes 
+     * three farmers to start their own farm.
+     */
+    protected void branch() {
+        boolean isFull = getFarmerCount() > maxFarmers;
+        if (isFull) {
+            //remove farmers
+            Farmer[] departingFarmers = new Farmer[3];
+            for (int i = 0; i < departingFarmers.length; i++) {
+                departingFarmers[i] = farmers.remove();
+            }
+            support.firePropertyChange("branch", null, departingFarmers);
+        }
+    }
+    
+    protected int getFarmerCount() {
+        return farmers.size();
+    }
+    /**
+     * Adds a PropertyChangeListener to this PropertyChangeSupport.
+     * @param listener The "Observer" of the Observer pattern.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Removes a PropertyChangeListener to this PropertyChangeSupport.
+     * @param listener The "Observer" of the Observer pattern.
+     */
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
     
 

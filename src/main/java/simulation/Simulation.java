@@ -1,6 +1,4 @@
 package simulation;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,11 +26,11 @@ public class Simulation {
     
     FarmFactory farmManager;
     private int cycle = 0;
-    final int daysToArmageddon = 1111;                             //total number of days to simulate
-    private static boolean isDay = true;                    //the time of day
-    Timer timer = new Timer();                              //timer to run the simulation
-    final int start = 2000;                                 //simulation start time
-    final int interval = 2000;                              //update frequency
+    final int daysToArmageddon = 1111;              //total number of days to simulate
+    private static boolean isDay = true;            //the time of day
+    Timer timer = new Timer();                      //timer to run the simulation
+    final int start = 2000;                         //simulation start time
+    final int interval = 2000;                      //update frequency
     
     public static boolean isDay() {
         return isDay;
@@ -52,7 +50,8 @@ public class Simulation {
     
     public Simulation(){
         farmManager = new FarmFactory();
-        farmManager.addFarm(FarmType.DAIRY, new Farmer[] {new Farmer(), new Farmer(), new Farmer()} );
+        farmManager.addFarm(FarmType.DAIRY, new Farmer[] {new Farmer(), new Farmer(), new Farmer(), 
+                new Farmer(), new Farmer(), new Farmer()} );
     }
     
     /**

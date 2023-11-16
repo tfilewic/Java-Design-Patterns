@@ -93,14 +93,14 @@ public class Herd implements PropertyChangeListener {
      * deaths queue.
      */
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        String propertyName = evt.getPropertyName();
+    public void propertyChange(PropertyChangeEvent event) {
+        String propertyName = event.getPropertyName();
         
         if (propertyName.equals("birth")) {
-            Animal baby = (Animal) evt.getNewValue();
+            Animal baby = (Animal) event.getNewValue();
             births.add(baby);
         } else if (propertyName.equals("death")) {
-            Animal deadAnimal = (Animal) evt.getNewValue();
+            Animal deadAnimal = (Animal) event.getNewValue();
             deaths.add(deadAnimal);
         }
     }

@@ -3,7 +3,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
+import animals.Animal;
 import simulation.Farmer;
 
 /**
@@ -15,6 +17,7 @@ import simulation.Farmer;
 public class FarmFactory implements PropertyChangeListener{
     
     private List<Farm> farms = new LinkedList<Farm>();  //the list of farms
+    private Queue<Farmer[]> branchingFarmers = new LinkedList<Farmer[]>();
     int lastId = 0;
     
     public FarmFactory(){
@@ -66,6 +69,7 @@ public class FarmFactory implements PropertyChangeListener{
                 farm = new DairyFarm();
                 break;
             }
+        farm.addPropertyChangeListener(this);
         return farm;
     }
 
@@ -77,12 +81,22 @@ public class FarmFactory implements PropertyChangeListener{
         for (Farm farm : farms) {
             farm.update(isDay);
         }
+        createBranches();
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        // TODO Auto-generated method stub
-        
+    public void propertyChange(PropertyChangeEvent event) {
+        System.out.println("Farm full.  Creating new farm.");
+        Farmer[] farmers = (Farmer[]) event.getNewValue();
+        branchingFarmers.add(farmers);
     }
     
+    private void createBranches() {
+        Farmer[] farmers;
+        while (!branchingFarmers.isEmpty()) {
+            farmers = branchingFarmers.remove();
+            addFarm(FarmType.getRandom(), farmers);
+        }
+        
+    }
 }
