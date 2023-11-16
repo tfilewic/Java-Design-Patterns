@@ -7,7 +7,7 @@ import java.util.Random;
 
 public abstract class Animal {
     
-    private PropertyChangeSupport support;  //Instance to support the Observer pattern
+    protected PropertyChangeSupport support;  //Instance to support the Observer pattern
     Animal offspring = null;
     protected String type = "";
     final int fertility;
@@ -21,18 +21,20 @@ public abstract class Animal {
     
     abstract int produce();
     
-    abstract Animal giveBirth();
+    abstract void giveBirth();
+    
+    abstract void die();
     
     public void update(boolean isDay) {
         if (isDay) {
             age++;
             if (isPregnant())  {
-                offspring = giveBirth();
-                support.firePropertyChange("birth", null, offspring);
-                offspring = null;
+                giveBirth();
             }  
         } else {
-            //do bad things
+            if (age >= 14) {
+                die();
+            }
         }
         
         

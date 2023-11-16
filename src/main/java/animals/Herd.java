@@ -9,20 +9,25 @@ import java.util.Queue;
 
 /**
  * Manages the animals on a farm
+ * The "Observer" in the Observer pattern to handle births and deaths.
  * @author tfilewic
  */
 public class Herd implements PropertyChangeListener {
     
-    //implements observer to add new animals when born
+
+    private LinkedList<Animal> animals; //the current animals in the herd
+    private Queue<Animal> births;       //the newly born animals to be added to the herd
+    private Queue<Animal> deaths;       //the newly dead animals to be removed from the herd
     
-    private LinkedList<Animal> animals;
-    private Queue<Animal> babies;
-    
-    
+    /**
+     * Default constructor.
+     */
     public Herd() {
         animals = new LinkedList<Animal>();
-        babies = new LinkedList<Animal>();
+        births = new LinkedList<Animal>();
+        deaths = new LinkedList<Animal>();
     }
+    
     /**
      * Uses the herd for income.
      * @return the revenue generated.
@@ -42,11 +47,8 @@ public class Herd implements PropertyChangeListener {
         for (Animal animal : animals) {
             animal.update(isDay);
         }
-        while (!babies.isEmpty()) {
-            addAnimal(babies.remove());
-        }
-        
-        
+        processBirths();
+        processDeaths();
     }
     
     /*
@@ -56,6 +58,10 @@ public class Herd implements PropertyChangeListener {
         return animals.size();
     }
     
+    /**
+     * Gets the string description for this type of animal.
+     * @return the type.
+     */
     public String getType() {
         String type = "animals";
         if (animals != null && !(animals.isEmpty())) {
@@ -64,27 +70,58 @@ public class Herd implements PropertyChangeListener {
         return type;
     }
    
+    /**
+     * Adds an animal to the herd.
+     * @param animal The animal to add.
+     */
     public void addAnimal(Animal animal) {
         animals.add(animal);
         animal.addPropertyChangeListener(this);
     }
     
-
+    /*
+     * Prints the quantity and type of animals in this herd.
+     */
     public String display() {
         String description = getSize() + " " + getType();
         return description;
     }
     
+    /*
+     * Handles property change events for the Subject classes being observed.
+     * Adds newly born animals to births queue, and newly dead animals to
+     * deaths queue.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
         
         if (propertyName.equals("birth")) {
             Animal baby = (Animal) evt.getNewValue();
-            babies.add(baby);
+            births.add(baby);
+        } else if (propertyName.equals("death")) {
+            Animal deadAnimal = (Animal) evt.getNewValue();
+            deaths.add(deadAnimal);
         }
-
-        
     }
     
+    /**
+     * Adds animals in births queue to the herd.
+     */
+    private void processBirths() {
+        while (!births.isEmpty()) {
+            Animal baby = births.remove();
+            addAnimal(baby);
+        }
+    }
+    
+    /**
+     * Removes animals in deaths queue from the herd.
+     */
+    private void processDeaths() {
+        while (!deaths.isEmpty()) {
+            Animal deadAnimal = deaths.remove();
+            animals.remove(deadAnimal);
+        }
+    }
 }

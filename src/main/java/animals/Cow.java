@@ -14,10 +14,19 @@ public class Cow extends Animal{
     }
 
     @Override
-    Animal giveBirth() {
+    void giveBirth() {
+        Cow calf = new Cow();
         System.out.println("calf born");
-        return new Cow();
+        support.firePropertyChange("birth", null, calf);
     }
+    
+    @Override
+    void die() {
+        Cow deadCow = this;
+        System.out.println("cow died");
+        support.firePropertyChange("death", null, deadCow);
+    }   
+    
     
     /**
      * Milk the cow for income.
@@ -32,6 +41,7 @@ public class Cow extends Animal{
             lastProduction++;
             return 0;
         }
-    }   
-    
+    }
+
+
 }

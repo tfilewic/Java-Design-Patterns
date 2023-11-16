@@ -63,15 +63,15 @@ public abstract class BasicFarm implements Farm {
     public void display() {
         //TODO
         System.out.println(" ID -- Type -- Age -- Balance -- Farmers -- Assets");
-        System.out.println("  " + id + "    " + farmType +  "    " + age + "       " +
-        accountBalance + "          " + farmerCount + "        "  + displayAssets() + "\n");
+        System.out.println("  " + id + "    " + farmType +  "    " + age + "      $" +
+        accountBalance + "        " + farmerCount + "        "  + displayAssets() + "\n");
     }
     
     /**
      * Hires a a new farmer every 10 days
      */
     protected void hire() {
-        final int hiringFrequency = 2;   //TODO fix this to 10
+        final int hiringFrequency = 2;   //TODO fix this to 10                                                  //TODO fix this to 10//TODO fix this to 10//TODO fix this to 10//TODO fix this to 10//TODO fix this to 10
         if (age % hiringFrequency == 0 && age > 0) {
             System.out.println("farmer hired");
             addFarmer(new Farmer());

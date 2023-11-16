@@ -8,10 +8,18 @@ public class Sheep extends Animal {
     }
 
     @Override
-    Animal giveBirth() {
+    void giveBirth() {
+        Sheep lamb = new Sheep();
         System.out.println("lamb born");
-        return new Sheep();
+        support.firePropertyChange("birth", null, lamb);
     }
+    
+    @Override
+    void die() {
+        Sheep deadSheep = this;
+        System.out.println("sheep died");
+        support.firePropertyChange("death", null, deadSheep);
+    }  
 
     @Override
     public int produce() {
