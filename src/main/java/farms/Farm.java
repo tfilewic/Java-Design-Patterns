@@ -15,6 +15,8 @@ public interface Farm {
      * Updates the state of the farm by one 12hr tick.
      */
     void update(boolean isDay);
+    
+    void earn();
    
     void addFarmer(Farmer farmer);
     
@@ -23,4 +25,4 @@ public interface Farm {
     void addPropertyChangeListener(PropertyChangeListener listener);
     
 }
- 
+     

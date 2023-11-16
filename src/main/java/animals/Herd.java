@@ -5,6 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import farms.Asset;
+
 
 
 /**
@@ -12,7 +14,7 @@ import java.util.Queue;
  * The "Observer" in the Observer pattern to handle births and deaths.
  * @author tfilewic
  */
-public class Herd implements PropertyChangeListener {
+public class Herd implements PropertyChangeListener, Asset{
     
 
     private LinkedList<Animal> animals; //the current animals in the herd

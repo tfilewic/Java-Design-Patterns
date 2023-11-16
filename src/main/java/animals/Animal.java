@@ -36,9 +36,6 @@ public abstract class Animal {
                 die();
             }
         }
-        
-        
- 
     }
     
     /**

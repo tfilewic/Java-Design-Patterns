@@ -1,22 +1,10 @@
 package farms;
 
-public class VegetableFarm extends CropFarm {
+public class VegetableFarm extends BasicFarm {
 
-    @Override
-    protected void earn() {
-        // TODO Auto-generated method stub
-        
+    public VegetableFarm(){
+        super();
+        asset = new Crop("vegetables", 40);
     }
-
-    @Override
-    protected void updateAssets(boolean isDay) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    protected String displayAssets() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    
 }

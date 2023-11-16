@@ -24,8 +24,8 @@ public class Simulation {
         System.out.println("E-I-E-I-O");
     }
     
-    FarmFactory farmManager;
-    private int cycle = 0;
+    FarmManager farmManager;
+    private int cycle = 1;
     final int daysToArmageddon = 1111;              //total number of days to simulate
     private static boolean isDay = true;            //the time of day
     Timer timer = new Timer();                      //timer to run the simulation
@@ -49,7 +49,9 @@ public class Simulation {
     }
     
     public Simulation(){
-        farmManager = new FarmFactory();
+        farmManager = new FarmManager();
+        
+        //instantiate a single farm
         farmManager.addFarm(FarmType.DAIRY, new Farmer[] {new Farmer(), new Farmer(), new Farmer(), 
                 new Farmer(), new Farmer(), new Farmer()} );
     }
@@ -69,11 +71,10 @@ public class Simulation {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                //TODO update everything
                 displayCycle();
                 farmManager.updateFarms(isDay);
                 //advance the simulation one day
-                if (isDay) {
+                if (!isDay) {
                     cycle++;
                     }
                 if (cycle >= daysToArmageddon) {

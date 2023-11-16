@@ -1,23 +1,15 @@
 package farms;
-public class GrainFarm extends CropFarm{
 
-    @Override
-    protected void earn() {
-        // TODO Auto-generated method stub
-        
+import animals.Herd;
+
+public class GrainFarm extends BasicFarm{
+
+    Crop crop;
+    
+    public GrainFarm(){
+        super();
+        asset = new Crop("grain", 40);
     }
-
-    @Override
-    protected void updateAssets(boolean isDay) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    protected String displayAssets() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    
 
 }

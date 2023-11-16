@@ -22,12 +22,7 @@ public abstract class BasicFarm implements Farm {
     protected final int maxFarmers = 9;
     protected Queue<Farmer> farmers;
     protected PropertyChangeSupport support;  //Instance to support the Observer pattern
-    
-    protected abstract void earn();
-    
-    protected abstract void updateAssets(boolean isDay);
-    
-    protected abstract String displayAssets();
+    protected Asset asset;
     
     public BasicFarm() {
         age = 0;
@@ -47,9 +42,17 @@ public abstract class BasicFarm implements Farm {
             hire();
             age++;
         }
-        updateAssets(isDay);
+        asset.update(isDay);
         display();
     }
+    
+    
+    @Override
+    public void earn() {
+        accountBalance += asset.produce();
+    }
+    
+    
     
     @Override
     public void addFarmer(Farmer farmer) {
@@ -70,7 +73,7 @@ public abstract class BasicFarm implements Farm {
         //TODO
         System.out.println(" ID -- Type -- Age -- Balance -- Farmers -- Assets");
         System.out.println("  " + id + "    " + farmType +  "    " + age + "      $" +
-        accountBalance + "        " + getFarmerCount() + "        "  + displayAssets() + "\n");
+        accountBalance + "        " + getFarmerCount() + "        "  + asset.display() + "\n");
     }
     
     /**

@@ -17,7 +17,10 @@ public enum FarmType {
     private static final Random RANDOM = new Random();
     private static final int SIZE = VALUES.length;
     
-    
+    /**
+     * Get a random FarmType.
+     * @return a random FarmType.
+     */
     public static FarmType getRandom() {
         return VALUES[RANDOM.nextInt(SIZE)];
     }
