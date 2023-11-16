@@ -8,6 +8,6 @@ package farms;
 public enum FarmType {
     GRAIN,
     VEGETABLE,
-    DIARY,
+    DAIRY,
     SHEEP
 }

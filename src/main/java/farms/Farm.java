@@ -14,9 +14,9 @@ public interface Farm {
      */
     void update(boolean isDay);
    
-    
     void addFarmer(Farmer farmer);
     
     void setId(int id);
+    
 }
  

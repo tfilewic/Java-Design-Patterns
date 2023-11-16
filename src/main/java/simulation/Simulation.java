@@ -1,9 +1,10 @@
 package simulation;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import farms.Farm;
+import farms.*;
 
 /**
  * The Main class for assignment 5.
@@ -25,9 +26,10 @@ public class Simulation {
         System.out.println("E-I-E-I-O");
     }
     
-    
-    private ArrayList<Farm> farms = new ArrayList<Farm>();  //the list of farms
-    int daysToArmageddon = 10;                              //total number of days to simulate
+    FarmFactory farmManager;
+    private List<Farm> farms = new LinkedList<Farm>();  //the list of farms
+    private int cycle = 0;
+    final int daysToArmageddon = 1111;                             //total number of days to simulate
     private static boolean isDay = true;                    //the time of day
     Timer timer = new Timer();                              //timer to run the simulation
     final int start = 2000;                                 //simulation start time
@@ -37,8 +39,21 @@ public class Simulation {
         return isDay;
     }
     
+    private void displayCycle() {
+        String header = "                 CYCLE " + cycle + "  ";
+        if (isDay) {
+            header += "DAY";
+        } else {
+            header += "NIGHT";
+        }
+        System.out.println("\n\n====================================================");
+        System.out.println(header);
+        System.out.println("====================================================\n");
+    }
+    
     public Simulation(){
-        //instantiate Farm and add to farms
+        farmManager = new FarmFactory(this);
+        farmManager.addFarm(FarmType.DAIRY, new Farmer[] {new Farmer(), new Farmer(), new Farmer()} );
     }
     
     /**
@@ -56,26 +71,23 @@ public class Simulation {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                
-              //TODO update everything
-              System.out.println("we be farmin");
-              
-              
-              
-              
-              //advance the simulation one day
-              if (isDay) {
-                  daysToArmageddon--;
-              }
-              if (daysToArmageddon == 0) {
-                  endSimulation();
-              }
-              
-              //advance the time 12hrs
-              isDay = !isDay;
-            }
-          }, start, interval); 
-    }
+                //TODO update everything
+                displayCycle();
+                for (Farm farm : farms) {
+                farm.update(isDay);
+                }
+                //advance the simulation one day
+                if (isDay) {
+                    cycle++;
+                    }
+                if (cycle >= daysToArmageddon) {
+                    endSimulation();
+                    }
+                //advance the time 12hrs
+                isDay = !isDay;
+                }
+            }, start, interval);
+        }
     
     public void addFarm(Farm farm) {
         farms.add(farm);

@@ -1,33 +1,16 @@
 package animals;
 
+
 public class Cow extends Animal{
     
-    /**
-     * Milk the cow for income.
-     * @return the earnings.
-     */
-    private int milk() {
-        if (age > 3 && lastProduction >= 2) {
-            lastProduction = 0;
-            return 17;
-        } else {
-            lastProduction++;
-            return 0;
-        }
+    public Cow() {
+        super();
+        type = "cows";
     }
     
-    /**
-     * 
-     * @return
-     */
-    public int sell() {
-        return 244;
-    }
-
     @Override
-    public void update() {
-        // TODO Auto-generated method stub
-        
+    public int produce() {
+        return milk();
     }
 
     @Override
@@ -35,9 +18,20 @@ public class Cow extends Animal{
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /**
+     * Milk the cow for income.
+     * @return the earnings.
+     */
+    private int milk() {
 
-    @Override
-    public int produce() {
-        return milk();
-    }
+        if (age > 3 && lastProduction >= 2) {
+            lastProduction = 0;
+            return 17;
+        } else {
+            lastProduction++;
+            return 0;
+        }
+    }   
+    
 }

@@ -8,15 +8,25 @@ import simulation.Farmer;
 
 public abstract class BasicFarm implements Farm {
     
-    int id = -1;
-    String farmType;
-    int age = 0;
-    int accountBalance = 0;
-    int acreage = 160;
-    int farmerCount = 0;
-    LinkedList<Farmer> farmers = new LinkedList<Farmer>();
+    protected int id = -1;
+    protected FarmType farmType;
+    protected int age = 0;
+    protected int accountBalance = 0;
+    protected int farmerCount = 0;
+    protected LinkedList<Farmer> farmers = new LinkedList<Farmer>();
     
     protected abstract void earn();
+    
+    protected abstract void updateAssets(boolean isDay);
+    
+    protected abstract String displayAssets();
+    
+    public BasicFarm() {
+        age = 0;
+        accountBalance = 0;
+        farmerCount = 0;
+        farmers = new LinkedList<Farmer>();
+    }
     
     @Override
     public void update(boolean isDay){
@@ -28,13 +38,14 @@ public abstract class BasicFarm implements Farm {
             hire();
             age++;
         }
+        updateAssets(isDay);
         display();
     }
     
     @Override
     public void addFarmer(Farmer farmer) {
         farmers.add(farmer);
-        farmerCount = farmers.size();
+        farmerCount++;
     }
     
     @Override
@@ -44,22 +55,20 @@ public abstract class BasicFarm implements Farm {
         }
     }
     
-    private void display() {
+    public void display() {
         //TODO
-        // print farm type
-        // account balance
-        // farmers
-        // size
-        // assets?
+        System.out.println(" ID -- Type -- Age -- Balance -- Farmers -- Assets");
+        System.out.println("  " + id + "    " + farmType +  "    " + age + "       " +
+        accountBalance + "          " + farmerCount + "        "  + displayAssets() + "\n");
     }
     
     /**
      * Hires a a new farmer every 10 days
      */
     protected void hire() {
-        final int hiringFrequency = 10;
-        if (age % hiringFrequency == 0) {
-            farmers.add(new Farmer());
+        final int hiringFrequency = 2;   //TODO fix this to 10
+        if (age % hiringFrequency == 0 && age > 0) {
+            addFarmer(new Farmer());
         }
     }
     

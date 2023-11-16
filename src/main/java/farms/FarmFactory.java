@@ -10,7 +10,11 @@ import simulation.Simulation;
 public class FarmFactory {
     
     Simulation simulation;
-    static int lastId = 0;
+    int lastId = 0;
+    
+    public FarmFactory(Simulation simulation){
+        this.simulation = simulation;
+    }
     
     /**
      * Adds a new farm to the simulation.
@@ -41,7 +45,7 @@ public class FarmFactory {
     private Farm createFarm(FarmType type) {
         Farm farm;
         switch(type) {
-            case DIARY:
+            case DAIRY:
                 farm = new DairyFarm();
                 break;
             case GRAIN:

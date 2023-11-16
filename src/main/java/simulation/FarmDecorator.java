@@ -2,7 +2,7 @@ package simulation;
 import farms.Farm;
 
 /**
- * Interface to allow a farm to earn extra income from supplemental operations.
+ * Interface to give a farm extra functionality, like earning extra income from supplemental operations.
  * The "Decorator" class from the Decorator pattern.
  * @author tfilewic
  */
