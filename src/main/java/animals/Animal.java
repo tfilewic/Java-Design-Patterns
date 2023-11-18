@@ -8,14 +8,12 @@ import java.util.Random;
 public abstract class Animal {
     
     protected PropertyChangeSupport support;  //Instance to support the Observer pattern
-    Animal offspring = null;
     protected String type = "";
-    final int fertility;
-    int age = 0;
-    int lastProduction = 0;
+    protected int fertility = 3;
+    protected int age = 0;
+    protected int lastProduction = 0;
     
     protected Animal() {
-        fertility = 3;
         support = new PropertyChangeSupport(this);
     }
     

@@ -4,8 +4,10 @@ import java.util.TimerTask;
 
 import farms.*;
 
+
 /**
  * The Main class for assignment 5.
+ * Runs a farm simulation.
  * @author tfilewic
  */
 public class Simulation {
@@ -24,36 +26,40 @@ public class Simulation {
         System.out.println("E-I-E-I-O");
     }
     
-    FarmManager farmManager;
-    private int cycle = 1;
-    final int daysToArmageddon = 1111;              //total number of days to simulate
-    private static boolean isDay = true;            //the time of day
-    Timer timer = new Timer();                      //timer to run the simulation
-    final int start = 2000;                         //simulation start time
-    final int interval = 2000;                      //update frequency
     
-    public static boolean isDay() {
-        return isDay;
-    }
     
-    private void displayCycle() {
-        String header = "                 CYCLE " + cycle + "  ";
-        if (isDay) {
-            header += "DAY";
-        } else {
-            header += "NIGHT";
-        }
-        System.out.println("\n\n====================================================");
-        System.out.println(header);
-        System.out.println("====================================================\n");
-    }
     
+    FarmManager farmManager;                //manages the farms
+    private int cycle = 1;                  //the starting cycle number
+    final int daysToArmageddon;             //total number of days to simulate
+    private static boolean isDay = true;    //the time of day
+    Timer timer = new Timer();              //timer to run the simulation
+    int start;                              //simulation start time in milliseconds
+    int interval;                           //update frequency in milliseconds
+    
+
+    
+    /**
+     * Default constructor.
+     */
     public Simulation(){
+
         farmManager = new FarmManager();
+        daysToArmageddon = 365;
+        timer = new Timer();
+        start = 2000; 
+        interval = 2000;
         
-        //instantiate a single farm
-        farmManager.addFarm(FarmType.DAIRY, new Farmer[] {new Farmer(), new Farmer(), new Farmer(), 
-                new Farmer(), new Farmer(), new Farmer()} );
+        //instantiate and add initial farm
+        FarmFactory factory = farmManager.getFactory();
+        Farm newFarm = factory.createFarm(FarmType.DAIRY);
+        farmManager.addFarm(newFarm);
+        newFarm = factory.createFarm(FarmType.SHEEP);
+        farmManager.addFarm(newFarm);
+        newFarm = factory.createFarm(FarmType.GRAIN);
+        farmManager.addFarm(newFarm);
+        newFarm = factory.createFarm(FarmType.VEGETABLE);
+        farmManager.addFarm(newFarm);
     }
     
     /**
@@ -68,6 +74,9 @@ public class Simulation {
      * Runs the simulation.
      */
     public void simulate() {
+        
+        FarmFactory factory = farmManager.getFactory();
+        
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -85,6 +94,30 @@ public class Simulation {
                 }
             }, start, interval);
         }
+    
+    /**
+     * 
+     * @return if it is daytime in the current cycle.
+     */
+    public static boolean isDay() {
+        return isDay;
+    }
+    
+    
+    /**
+     * Prints a header for the current cycle.
+     */
+    private void displayCycle() {
+        String header = "                 CYCLE " + cycle + "  ";
+        if (isDay) {
+            header += "DAY";
+        } else {
+            header += "NIGHT";
+        }
+        System.out.println("\n\n====================================================");
+        System.out.println(header);
+        System.out.println("====================================================\n");
+    }
     
     
     /**

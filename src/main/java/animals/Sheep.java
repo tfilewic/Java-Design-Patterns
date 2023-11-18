@@ -5,6 +5,7 @@ public class Sheep extends Animal {
     public Sheep() {
         super();
         type = "sheep";
+        fertility = 4;
     }
 
     @Override
@@ -31,9 +32,12 @@ public class Sheep extends Animal {
      * @return the earnings.
      */
     private int shear() {
+        final int marketPrice = 5;
         if (age > 3 && lastProduction >= 2) {
-            return 17;
+            lastProduction = 0;
+            return marketPrice;
         } else {
+            lastProduction++;
             return 0;
         }
     }

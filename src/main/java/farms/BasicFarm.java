@@ -9,7 +9,7 @@ import java.util.Queue;
 import simulation.Farmer;
 
 /**
- * A simple farm.
+ * A basic farm.
  * @author tfilewic
  *
  */
@@ -18,54 +18,51 @@ public abstract class BasicFarm implements Farm {
     protected int id = -1;
     protected FarmType farmType;
     protected int age = 0;
-    protected int accountBalance = 0;
+    protected int accountBalance;
     protected final int maxFarmers = 9;
     protected Queue<Farmer> farmers;
     protected PropertyChangeSupport support;  //Instance to support the Observer pattern
     protected Asset asset;
+    protected final int upgradeCost = 1000;
+    protected final int upgradeThreshold = upgradeCost + 200;
     
     public BasicFarm() {
         age = 0;
-        accountBalance = 0;
+        accountBalance = 200;
         farmers = new LinkedList<Farmer>();
         support = new PropertyChangeSupport(this);
     }
     
     @Override
-    public void update(boolean isDay){
+    public boolean update(boolean isDay){
         if (!isDay) {
             //TODO predators and disease
+            //payTax();
+            
+            if (accountBalance <= 0) {
+                return true;
+            }
         }
         if (isDay) {
+            upgrade();
             earn();
             branch();
             hire();
             age++;
         }
         asset.update(isDay);
-        display();
+        return false;
     }
     
-    
-    @Override
-    public void earn() {
-        accountBalance += asset.produce();
-    }
-    
-    
-    
-    @Override
-    public void addFarmer(Farmer farmer) {
-        farmers.add(farmer);
-    }
-    
-    @Override
-    public void setId(int newId){
-        if (id == -1) {
-            id = newId;
+    protected void upgrade () {
+        int upgradesAvailable = accountBalance / upgradeThreshold;
+        if (accountBalance > upgradeThreshold) {
+            int moneySpent = upgradesAvailable * upgradeCost;
+            asset.upgrade(moneySpent);
+            accountBalance -= moneySpent;
         }
-    }
-    
+    };
+
     /**
      * Prints the current state of this farm.
      */
@@ -75,6 +72,30 @@ public abstract class BasicFarm implements Farm {
         System.out.println("  " + id + "    " + farmType +  "    " + age + "      $" +
         accountBalance + "        " + getFarmerCount() + "        "  + asset.display() + "\n");
     }
+    
+    public void earn() {
+        accountBalance += asset.produce();
+    }
+    
+    public void earn(int amount) {
+        accountBalance += amount;
+    }
+    
+    public void payTax() {
+        accountBalance = accountBalance * 9 / 10 - 10 ;
+    }
+    
+    public void addFarmer(Farmer farmer) { 
+        farmers.add(farmer);
+    }
+    
+ 
+    public void setId(int newId){
+        if (id == -1) {
+            id = newId;
+        }
+    }
+    
     
     /**
      * Hires a a new farmer every 10 days
@@ -103,9 +124,14 @@ public abstract class BasicFarm implements Farm {
         }
     }
     
+    /**
+     * Gets the number of farmers working this farm
+     * @return the number of farmers.
+     */
     protected int getFarmerCount() {
         return farmers.size();
     }
+    
     /**
      * Adds a PropertyChangeListener to this PropertyChangeSupport.
      * @param listener The "Observer" of the Observer pattern.

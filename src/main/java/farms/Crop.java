@@ -3,17 +3,17 @@ package farms;
 public class Crop implements Asset{
     private String type;
     private int size = 40;
-    private int price;
-    int lastHarvest = 0;
+    private int marketPrice;
+    private int costPerAcre;
     
-    Crop(String cropType, int marketPrice) {
+    private int lastHarvest = 0;
+    
+    Crop(String cropType, int marketPrice, int costPerAcre) {
         size = 40;
         type = cropType; 
-        price = marketPrice;
+        this.marketPrice = marketPrice;
+        this.costPerAcre = costPerAcre;
     }
-    
-    
-
     
     public void addAcres(int acres) {
         size += acres;
@@ -29,10 +29,11 @@ public class Crop implements Asset{
         int revenue = 0;
         
         if (lastHarvest != 0 && lastHarvest % 3 == 0) {
-            revenue = size * price;
+            revenue = size * marketPrice;
             lastHarvest = 0;
-        };
-        
+        } else {
+            lastHarvest++;   
+        }
         return revenue;
     }
     
@@ -44,6 +45,13 @@ public class Crop implements Asset{
     public String display() {
         String description = size + "ac " + type;
         return description;
+    }
+
+    @Override
+    public void upgrade(int moneySpent) {
+        int addedAcres = moneySpent/costPerAcre;
+        System.out.println("upgrade: " + addedAcres + " " + type + " bought");
+        size += addedAcres;
     }
         
 }

@@ -1,7 +1,4 @@
 package farms;
-import java.beans.PropertyChangeListener;
-
-import simulation.Farmer;
 
 /**
  * Common interface for all farms.
@@ -13,16 +10,15 @@ public interface Farm {
     
     /**
      * Updates the state of the farm by one 12hr tick.
+     * @return if the farm is broke.
      */
-    void update(boolean isDay);
+    boolean update(boolean isDay);
     
-    void earn();
-   
-    void addFarmer(Farmer farmer);
+    /**
+     * Prints the current state of the farm.
+     */
+    void display();
     
-    void setId(int id);
-    
-    void addPropertyChangeListener(PropertyChangeListener listener);
     
 }
      

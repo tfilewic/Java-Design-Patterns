@@ -19,7 +19,8 @@ public class Herd implements PropertyChangeListener, Asset{
 
     private LinkedList<Animal> animals; //the current animals in the herd
     private Queue<Animal> births;       //the newly born animals to be added to the herd
-    private Queue<Animal> deaths;       //the newly dead animals to be removed from the herd
+    private Queue<Animal> deaths;       //the newly dead animals to be removed from the herd.
+    final int costPerAnimal = 50;
     
     /**
      * Default constructor.
@@ -125,5 +126,34 @@ public class Herd implements PropertyChangeListener, Asset{
             Animal deadAnimal = deaths.remove();
             animals.remove(deadAnimal);
         }
+    }
+
+    /**
+     * Purchases new animals for the herd.
+     */
+    @Override
+    public void upgrade(int moneySpent) {
+        int newAnimals = moneySpent/costPerAnimal;
+        
+        if (animals.isEmpty()) {
+            return;
+        }
+        Animal firstAnimal = animals.getFirst();
+        Class<? extends Animal> animalType = firstAnimal.getClass();
+        try {
+            System.out.println("upgrade: " + newAnimals + " " + firstAnimal.getAnimalType() + " bought");
+            while (newAnimals > 0) {
+                Animal newAnimal = animalType.newInstance();
+                addAnimal(newAnimal);
+                newAnimals--;
+            }
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 }

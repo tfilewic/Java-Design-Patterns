@@ -1,14 +1,16 @@
 package farms;
 
-import animals.Herd;
-
 public class GrainFarm extends BasicFarm{
 
     Crop crop;
+    final int grainPrice = 5;
+    final int landPrice = 25;
+    
     
     public GrainFarm(){
         super();
-        asset = new Crop("grain", 40);
+        farmType = FarmType.GRAIN;
+        asset = new Crop("wheat", grainPrice, landPrice);
     }
     
 

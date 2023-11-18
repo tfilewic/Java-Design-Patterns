@@ -1,5 +1,6 @@
 package farms;
 
+import simulation.Farmer;
 
 /**
  * Interface to create Farm objects.
@@ -16,4 +17,10 @@ public interface FarmFactory {
      */
     public Farm createFarm(FarmType type);
     
+    /**
+     * Creates a Farm object of the specified type with
+     * the provided Farmers.
+     * @param farmers An array of Farmers.
+     */
+    public Farm createFarm(FarmType type, Farmer[] farmers);
 }

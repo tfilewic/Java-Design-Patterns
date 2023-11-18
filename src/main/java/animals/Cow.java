@@ -6,6 +6,7 @@ public class Cow extends Animal{
     public Cow() {
         super();
         type = "cows";
+        fertility = 3;
     }
     
     @Override
@@ -33,10 +34,10 @@ public class Cow extends Animal{
      * @return the earnings.
      */
     private int milk() {
-
+        final int marketPrice = 17;
         if (age > 3 && lastProduction >= 2) {
             lastProduction = 0;
-            return 17;
+            return marketPrice;
         } else {
             lastProduction++;
             return 0;
