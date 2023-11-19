@@ -1,26 +1,26 @@
-package animals;
+package asset;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import farms.Asset;
+import java.util.Random;
 
 
 
 /**
- * Manages the animals on a farm
+ * Manages the asset on a farm
  * The "Observer" in the Observer pattern to handle births and deaths.
  * @author tfilewic
  */
 public class Herd implements PropertyChangeListener, Asset{
     
 
-    private LinkedList<Animal> animals; //the current animals in the herd
-    private Queue<Animal> births;       //the newly born animals to be added to the herd
-    private Queue<Animal> deaths;       //the newly dead animals to be removed from the herd.
-    final int costPerAnimal = 50;
+    private LinkedList<Animal> animals; //the current asset in the herd
+    private Queue<Animal> births;       //the newly born asset to be added to the herd
+    private Queue<Animal> deaths;       //the newly dead asset to be removed from the herd.
+    private int costPerAnimal = 100;    //the cost to purchase new asset for the herd.
+   
     
     /**
      * Default constructor.
@@ -44,9 +44,12 @@ public class Herd implements PropertyChangeListener, Asset{
     }
     
     /*
-     * Updates the herd's animals by one half day tick.
+     * Updates the herd's asset by one half day tick.
      */
     public void update(boolean isDay) {
+        if (! isDay) {
+            predatorKill();  
+        }
         for (Animal animal : animals) {
             animal.update(isDay);
         }
@@ -55,18 +58,18 @@ public class Herd implements PropertyChangeListener, Asset{
     }
     
     /*
-     * Gets the number of animals in the herd.
+     * Gets the number of asset in the herd.
      */
     public int getSize() {
         return animals.size();
     }
     
     /**
-     * Gets the string description for this type of animal.
+     * Gets the string description for this type of asset.
      * @return the type.
      */
     public String getType() {
-        String type = "animals";
+        String type = "asset";
         if (animals != null && !(animals.isEmpty())) {
             type = animals.peek().getAnimalType();
         }
@@ -74,8 +77,8 @@ public class Herd implements PropertyChangeListener, Asset{
     }
    
     /**
-     * Adds an animal to the herd.
-     * @param animal The animal to add.
+     * Adds an asset to the herd.
+     * @param asset The asset to add.
      */
     public void addAnimal(Animal animal) {
         animals.add(animal);
@@ -83,7 +86,7 @@ public class Herd implements PropertyChangeListener, Asset{
     }
     
     /*
-     * Prints the quantity and type of animals in this herd.
+     * Prints the quantity and type of asset in this herd.
      */
     public String display() {
         String description = getSize() + " " + getType();
@@ -92,7 +95,7 @@ public class Herd implements PropertyChangeListener, Asset{
     
     /*
      * Handles property change events for the Subject classes being observed.
-     * Adds newly born animals to births queue, and newly dead animals to
+     * Adds newly born asset to births queue, and newly dead asset to
      * deaths queue.
      */
     @Override
@@ -109,7 +112,7 @@ public class Herd implements PropertyChangeListener, Asset{
     }
     
     /**
-     * Adds animals in births queue to the herd.
+     * Adds asset in births queue to the herd.
      */
     private void processBirths() {
         while (!births.isEmpty()) {
@@ -119,7 +122,7 @@ public class Herd implements PropertyChangeListener, Asset{
     }
     
     /**
-     * Removes animals in deaths queue from the herd.
+     * Removes asset in deaths queue from the herd.
      */
     private void processDeaths() {
         while (!deaths.isEmpty()) {
@@ -129,7 +132,7 @@ public class Herd implements PropertyChangeListener, Asset{
     }
 
     /**
-     * Purchases new animals for the herd.
+     * Purchases new asset for the herd.
      */
     @Override
     public void upgrade(int moneySpent) {
@@ -154,6 +157,30 @@ public class Herd implements PropertyChangeListener, Asset{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+    }
+    
+    /**
+     * Sets the purchase price for the herd asset type.
+     * @param cost The new price.
+     */
+    public void setAnimalCost(int cost) {
+        costPerAnimal = cost;
+    }
+    
+    /**
+     * Removes asset killed by predation.
+     * @param count
+     */
+    public void predatorKill() {
+        int killCount = hazard.Predators.wolfKill(getSize());
+        int index = 0;
+
+        while (killCount > 0) {
+            Animal victim = animals.get(index);
+            deaths.add(victim);
+            index++;
+            killCount--;
+        }
+        processDeaths();
     }
 }

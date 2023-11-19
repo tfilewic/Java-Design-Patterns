@@ -1,15 +1,15 @@
-package farms;
+package farm;
 
 import java.util.Random;
 
 /**
- * Enumeration for the types of farms;
+ * Enumeration for the types of farm;
  * @author tfilewic
  *
  */
 public enum FarmType {
-    GRAIN,
-    VEGETABLE,
+    WHEAT,
+    CORN,
     DAIRY,
     SHEEP;
     

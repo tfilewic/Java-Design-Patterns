@@ -1,12 +1,11 @@
-package farms;
-
+package farm;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import simulation.Farmer;
+import asset.Asset;
 
 /**
  * A basic farm.
@@ -15,17 +14,21 @@ import simulation.Farmer;
  */
 public abstract class BasicFarm implements Farm {
 
-    protected int id = -1;
-    protected FarmType farmType;
-    protected int age = 0;
-    protected int accountBalance;
-    protected final int maxFarmers = 9;
-    protected Queue<Farmer> farmers;
-    protected PropertyChangeSupport support;  //Instance to support the Observer pattern
-    protected Asset asset;
-    protected final int upgradeCost = 1000;
-    protected final int upgradeThreshold = upgradeCost + 200;
+    protected int id = -1;                          //the farm's unique id
+    protected FarmType farmType;                    //the type of farm
+    protected int age = 0;                          //the current cycle of the farm
+    protected int accountBalance;                   //the amount of money the farm has
+    protected final int maxFarmers = 9;             //the number of farmers after which farmers leave to start a new branch
+    protected Queue<Farmer> farmers;                //the collection of farmers working the farm
+    protected PropertyChangeSupport support;        //instance to support the Observer pattern
+    protected Asset asset;                          //the farm's money earning asset
+    protected final int upgradeCost = 1000;         //the cost of a standard upgrade
+    protected final int upgradeThreshold = upgradeCost + 200;  //the balance at which a farm will purchase an upgrade
     
+    
+    /**
+     * Constructor.
+     */
     public BasicFarm() {
         age = 0;
         accountBalance = 200;
@@ -33,12 +36,15 @@ public abstract class BasicFarm implements Farm {
         support = new PropertyChangeSupport(this);
     }
     
+    /**
+     * Updates the state of the farm by half a cycle.
+     * @param isDay.  If it is daytime in the current cycle.
+     * @return if the farm is broke.
+     */
     @Override
     public boolean update(boolean isDay){
         if (!isDay) {
-            //TODO predators and disease
-            //payTax();
-            
+            payTax();
             if (accountBalance <= 0) {
                 return true;
             }
@@ -51,9 +57,13 @@ public abstract class BasicFarm implements Farm {
             age++;
         }
         asset.update(isDay);
+
         return false;
     }
     
+    /**
+     * Purchases an upgrade if the farm has sufficient funds.
+     */
     protected void upgrade () {
         int upgradesAvailable = accountBalance / upgradeThreshold;
         if (accountBalance > upgradeThreshold) {
@@ -67,35 +77,54 @@ public abstract class BasicFarm implements Farm {
      * Prints the current state of this farm.
      */
     public void display() {
-        //TODO
         System.out.println(" ID -- Type -- Age -- Balance -- Farmers -- Assets");
-        System.out.println("  " + id + "    " + farmType +  "    " + age + "      $" +
-        accountBalance + "        " + getFarmerCount() + "        "  + asset.display() + "\n");
+        System.out.print("  " + id + "    ");
+        System.out.printf("%-5s     ", ("" + farmType));
+        System.out.print(age + "     ");
+        System.out.printf("$%-4s        ", ("" + accountBalance));
+        System.out.println(getFarmerCount() + "       "  + asset.display() + "\n");
     }
     
+    /**
+     * Deposits the current day's income from assets into the account.
+     */
     public void earn() {
         accountBalance += asset.produce();
     }
     
+    /**
+     * Deposits the specified amount in the account.
+     * @param amount The amount to deposit.
+     */
+    @Override
     public void earn(int amount) {
         accountBalance += amount;
     }
     
+    /**
+     * Pays taxes from the account.
+     */
     public void payTax() {
-        accountBalance = accountBalance * 9 / 10 - 10 ;
+        accountBalance = accountBalance * 95 / 100 - 25 ;
     }
     
+    /**
+     * Adds a farmer to the farm.
+     * @param farmer
+     */
     public void addFarmer(Farmer farmer) { 
         farmers.add(farmer);
     }
     
- 
+    /**
+     * Sets the farm's id.
+     * @param newId  The id to set.
+     */
     public void setId(int newId){
         if (id == -1) {
             id = newId;
         }
-    }
-    
+    }    
     
     /**
      * Hires a a new farmer every 10 days

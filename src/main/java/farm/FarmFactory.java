@@ -1,6 +1,4 @@
-package farms;
-
-import simulation.Farmer;
+package farm;
 
 /**
  * Interface to create Farm objects.

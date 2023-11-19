@@ -1,28 +1,49 @@
-package animals;
+package asset;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Random;
 
-
+/**
+ * A farm animal used for income.
+ * @author tfilewic
+ *
+ */
 public abstract class Animal {
     
-    protected PropertyChangeSupport support;  //Instance to support the Observer pattern
-    protected String type = "";
-    protected int fertility = 3;
-    protected int age = 0;
-    protected int lastProduction = 0;
+    protected PropertyChangeSupport support;    //Instance to support the Observer pattern
+    protected String type = "";                 //The description for the type of crop.
+    protected int fertility = 3;                //The fertility factor of this species (1-10)
+    protected int age = 0;                      //The number of cycles the animal has been alive
+    protected int lastProduction = 0;           //The number of cycles since the animal has produced
     
+    /**
+     * Constructor
+     */
     protected Animal() {
         support = new PropertyChangeSupport(this);
     }
     
+    /**
+     * Produces income for the farm.
+     * @return the income produced by this animal.
+     */
     abstract int produce();
     
-    abstract void giveBirth();
+    /**
+     * Gives birth to offspring.
+     */
+    protected abstract void giveBirth();
     
-    abstract void die();
+    /**
+     * Dies at the end of its natural life.
+     */
+    protected abstract void die();
     
+    /**
+     * Updates the status of this animal by one half cycle.
+     * @param isDay If it is daytime in the current cycle.
+     */
     public void update(boolean isDay) {
         if (isDay) {
             age++;
@@ -37,8 +58,8 @@ public abstract class Animal {
     }
     
     /**
-     * Calculates if the animal is ready to give birth.
-     * @return if the animal is ready to give birth.
+     * Calculates if the asset is ready to give birth.
+     * @return if the asset is ready to give birth.
      */
     private boolean isPregnant() {
         Random random = new Random();
@@ -49,6 +70,10 @@ public abstract class Animal {
         return (correctTiming && isLucky);  
     }
     
+    /**
+     * Gets the animal's type.
+     * @return
+     */
     public String getAnimalType() {
         return type;
     }

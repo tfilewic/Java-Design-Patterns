@@ -2,7 +2,7 @@ package simulation;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import farms.*;
+import farm.*;
 
 
 /**
@@ -29,7 +29,7 @@ public class Simulation {
     
     
     
-    FarmManager farmManager;                //manages the farms
+    FarmManager farmManager;                //manages the farm
     private int cycle = 1;                  //the starting cycle number
     final int daysToArmageddon;             //total number of days to simulate
     private static boolean isDay = true;    //the time of day
@@ -45,7 +45,7 @@ public class Simulation {
     public Simulation(){
 
         farmManager = new FarmManager();
-        daysToArmageddon = 365;
+        daysToArmageddon = 100;
         timer = new Timer();
         start = 2000; 
         interval = 2000;
@@ -56,9 +56,9 @@ public class Simulation {
         farmManager.addFarm(newFarm);
         newFarm = factory.createFarm(FarmType.SHEEP);
         farmManager.addFarm(newFarm);
-        newFarm = factory.createFarm(FarmType.GRAIN);
+        newFarm = factory.createFarm(FarmType.WHEAT);
         farmManager.addFarm(newFarm);
-        newFarm = factory.createFarm(FarmType.VEGETABLE);
+        newFarm = factory.createFarm(FarmType.CORN);
         farmManager.addFarm(newFarm);
     }
     
@@ -66,7 +66,7 @@ public class Simulation {
      * Ends the simulation.
      */
     private void endSimulation() {
-        System.out.println("Oh no!  Armageddon has arrived and all farms are gone.  Goodbye");
+        System.out.println("Oh no!  Armageddon has arrived and all farm are gone.  Goodbye");
         System.exit(0);
     }
     

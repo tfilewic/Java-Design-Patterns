@@ -1,11 +1,10 @@
-package farms;
+package farm;
 
 import java.beans.PropertyChangeListener;
-import simulation.Farmer;
 
 /**
- * Class to create and manage BasicFarm objects.
- * A concrete "Creator" class for the Factory pattern.
+ * Class to create BasicFarm objects.
+ * A "Concrete Creator" class for the Factory pattern.
 
  * @author tfilewic
  */
@@ -66,14 +65,14 @@ public class BasicFarmFactory implements FarmFactory {
             case DAIRY:
                 farm = new DairyFarm();
                 break;
-            case GRAIN:
-                farm = new GrainFarm();
+            case WHEAT:
+                farm = new WheatFarm();
                 break;
             case SHEEP:
                 farm = new SheepFarm();
                 break;
-            case VEGETABLE:
-                farm = new VegetableFarm();
+            case CORN:
+                farm = new CornFarm();
                 break;
             default:
                 farm = new DairyFarm();

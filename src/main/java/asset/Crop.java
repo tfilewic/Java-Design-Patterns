@@ -1,14 +1,18 @@
-package farms;
+package asset;
 
+/**
+ * A type of asset containing crops that are grown and harvested.
+ * @author tfilewic
+ *
+ */
 public class Crop implements Asset{
     private String type;
     private int size = 40;
     private int marketPrice;
     private int costPerAcre;
-    
     private int lastHarvest = 0;
     
-    Crop(String cropType, int marketPrice, int costPerAcre) {
+    public Crop(String cropType, int marketPrice, int costPerAcre) {
         size = 40;
         type = cropType; 
         this.marketPrice = marketPrice;
@@ -21,7 +25,10 @@ public class Crop implements Asset{
     
     @Override
     public void update(boolean isDay) {
-        //TODO
+        if (! isDay) {
+            weatherDamage();
+
+        }
     }
 
     @Override
@@ -38,7 +45,7 @@ public class Crop implements Asset{
     }
     
     /*
-     * Gets a description of the quantity and type of animals in this herd.
+     * Gets a description of the quantity and type of asset in this herd.
      * @return the descript ion.
      */
     @Override
@@ -47,11 +54,23 @@ public class Crop implements Asset{
         return description;
     }
 
+    /**
+     * Purchases extra land as an upgrade.
+     * @param moneySpent The amount spent on the upgrade.
+     */
     @Override
     public void upgrade(int moneySpent) {
         int addedAcres = moneySpent/costPerAcre;
-        System.out.println("upgrade: " + addedAcres + " " + type + " bought");
+        System.out.println("upgrade: " + addedAcres + " ac " + type + " bought");
         size += addedAcres;
+    }
+    
+    /**
+     * Removes crops destroyed by weather events.
+     */
+    private void weatherDamage() {
+        int destroyedCrops = hazard.BadWeather.flood(size);
+        size-= destroyedCrops;
     }
         
 }

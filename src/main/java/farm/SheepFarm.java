@@ -1,7 +1,7 @@
-package farms;
+package farm;
 
-import animals.Herd;
-import animals.Sheep;
+import asset.Herd;
+import asset.Sheep;
 
 public class SheepFarm extends BasicFarm {
 
@@ -10,6 +10,7 @@ public class SheepFarm extends BasicFarm {
     public SheepFarm() {
         super();
         herd = new Herd();
+        herd.setAnimalCost(100);
         asset = herd;
         farmType = FarmType.SHEEP;
         final int minimumSize = 18;

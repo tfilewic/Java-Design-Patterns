@@ -1,8 +1,12 @@
-package farms;
+package farm;
 
-import animals.Cow;
-import animals.Herd;
+import asset.Cow;
+import asset.Herd;
 
+/**
+ * A farm that owns and milks cattle. 
+ * @author tfilewic
+ */
 public class DairyFarm extends BasicFarm{
     
     Herd herd;
@@ -10,6 +14,7 @@ public class DairyFarm extends BasicFarm{
     public DairyFarm() {
         super();
         herd = new Herd();
+        herd.setAnimalCost(250);
         asset = herd;
         farmType = FarmType.DAIRY;
         final int minimumSize = 10;

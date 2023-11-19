@@ -1,4 +1,4 @@
-package farms;
+package farm;
 
 
 /**
@@ -9,8 +9,12 @@ package farms;
 public abstract class FarmDecorator implements Farm {
     
     //Reference to the base farm that is being decorated.
-    private Farm decoratedFarm;
+    protected Farm decoratedFarm;
     
+    /**
+     * Constructor.
+     * @param farmToDecorate The farm to decorate.
+     */
     public FarmDecorator(Farm farmToDecorate){
         decoratedFarm = farmToDecorate;
     }
@@ -23,7 +27,6 @@ public abstract class FarmDecorator implements Farm {
     public boolean update(boolean isDay) {
         doExtra(isDay);
         return decoratedFarm.update(isDay);
-
     }
     
     /**
@@ -34,11 +37,12 @@ public abstract class FarmDecorator implements Farm {
     
     @Override
     public void display() {
-        // TODO Auto-generated method stub
-        
+        decoratedFarm.display();   
     }
 
-
-
+    @Override
+    public void earn(int amount) {
+        decoratedFarm.earn(amount);
+    }
 
 }
