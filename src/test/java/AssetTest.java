@@ -121,7 +121,7 @@ public class AssetTest {
     }
     
     /**
-     * Tests that purchasing an upgrade increases the crop size.
+     * Tests that purchasing an upgrade changes the crop size.
      */
     @Test
     public void cropsUpgrade() {
@@ -133,7 +133,7 @@ public class AssetTest {
     }
     
     /**
-     * Tests that addAcres increases the crop size.
+     * Tests that addAcres changes the crop size.
      */
     @Test
     public void cropsAddAcres() {
