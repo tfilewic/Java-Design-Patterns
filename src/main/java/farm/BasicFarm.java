@@ -1,11 +1,13 @@
 package farm;
 
+import asset.Asset;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import asset.Asset;
+
 
 /**
  * A basic farm.
@@ -14,16 +16,26 @@ import asset.Asset;
  */
 public abstract class BasicFarm implements Farm {
 
-    protected int id = -1;                          //the farm's unique id
-    protected FarmType farmType;                    //the type of farm
-    protected int age = 0;                          //the current cycle of the farm
-    protected int accountBalance;                   //the amount of money the farm has
-    protected final int maxFarmers = 9;             //the number of farmers after which farmers leave to start a new branch
-    protected Queue<Farmer> farmers;                //the collection of farmers working the farm
-    protected PropertyChangeSupport support;        //instance to support the Observer pattern
-    protected Asset asset;                          //the farm's money earning asset
-    protected final int upgradeCost = 1000;         //the cost of a standard upgrade
-    protected final int upgradeThreshold = upgradeCost + 200;  //the balance at which a farm will purchase an upgrade
+    //the farm's unique id
+    protected int id = -1;
+    //the type of farm
+    protected FarmType farmType; 
+    //the current cycle of the farm
+    protected int age = 0;
+    //the amount of money the farm has
+    protected int accountBalance;
+    //the number of farmers after which farmers leave to start a new branch
+    protected final int maxFarmers = 9;
+    //the collection of farmers working the farm
+    protected Queue<Farmer> farmers;
+    //instance to support the Observer pattern
+    protected PropertyChangeSupport support;    
+    //the farm's money earning asset
+    protected Asset asset;                      
+    //the cost of a standard upgrade
+    protected final int upgradeCost = 1000;     
+    //the balance at which a farm will purchase an upgrade
+    protected final int upgradeThreshold = upgradeCost + 200;
     
     
     /**
@@ -37,12 +49,10 @@ public abstract class BasicFarm implements Farm {
     }
     
     /**
-     * Updates the state of the farm by half a cycle.
-     * @param isDay.  If it is daytime in the current cycle.
-     * @return if the farm is broke.
+     * Updates the status by one half cycle.
      */
     @Override
-    public boolean update(boolean isDay){
+    public boolean update(boolean isDay) {
         if (!isDay) {
             payTax();
             if (accountBalance <= 0) {
@@ -64,14 +74,14 @@ public abstract class BasicFarm implements Farm {
     /**
      * Purchases an upgrade if the farm has sufficient funds.
      */
-    protected void upgrade () {
+    protected void upgrade() {
         int upgradesAvailable = accountBalance / upgradeThreshold;
         if (accountBalance > upgradeThreshold) {
             int moneySpent = upgradesAvailable * upgradeCost;
             asset.upgrade(moneySpent);
             accountBalance -= moneySpent;
         }
-    };
+    }
 
     /**
      * Prints the current state of this farm.
@@ -105,12 +115,12 @@ public abstract class BasicFarm implements Farm {
      * Pays taxes from the account.
      */
     public void payTax() {
-        accountBalance = accountBalance * 95 / 100 - 25 ;
+        accountBalance = accountBalance * 95 / 100 - 25;
     }
     
     /**
      * Adds a farmer to the farm.
-     * @param farmer
+     * @param farmer The Farmer to add.
      */
     public void addFarmer(Farmer farmer) { 
         farmers.add(farmer);
@@ -120,14 +130,14 @@ public abstract class BasicFarm implements Farm {
      * Sets the farm's id.
      * @param newId  The id to set.
      */
-    public void setId(int newId){
+    public void setId(int newId) {
         if (id == -1) {
             id = newId;
         }
     }    
     
     /**
-     * Hires a a new farmer every 10 days
+     * Hires a a new farmer every 10 days.
      */
     protected void hire() {
         final int hiringFrequency = 10;
@@ -154,7 +164,7 @@ public abstract class BasicFarm implements Farm {
     }
     
     /**
-     * Gets the number of farmers working this farm
+     * Gets the number of farmers working this farm.
      * @return the number of farmers.
      */
     protected int getFarmerCount() {

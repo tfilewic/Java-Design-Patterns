@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
 
 
 
@@ -13,7 +12,7 @@ import java.util.Random;
  * The "Observer" in the Observer pattern to handle births and deaths.
  * @author tfilewic
  */
-public class Herd implements PropertyChangeListener, Asset{
+public class Herd implements PropertyChangeListener, Asset {
     
 
     private LinkedList<Animal> animals; //the current asset in the herd
@@ -43,8 +42,9 @@ public class Herd implements PropertyChangeListener, Asset{
         return revenue;
     }
     
-    /*
-     * Updates the herd's asset by one half day tick.
+    /**
+     * Updates the herd by one half cycle.
+     * @param isDay If it is daytime in the current cycle.
      */
     public void update(boolean isDay) {
         if (! isDay) {
@@ -78,7 +78,7 @@ public class Herd implements PropertyChangeListener, Asset{
    
     /**
      * Adds an asset to the herd.
-     * @param asset The asset to add.
+     * @param animal The animal to add.
      */
     public void addAnimal(Animal animal) {
         animals.add(animal);
@@ -136,7 +136,7 @@ public class Herd implements PropertyChangeListener, Asset{
      */
     @Override
     public void upgrade(int moneySpent) {
-        int newAnimals = moneySpent/costPerAnimal;
+        int newAnimals = moneySpent / costPerAnimal;
         
         if (animals.isEmpty()) {
             return;
@@ -144,17 +144,16 @@ public class Herd implements PropertyChangeListener, Asset{
         Animal firstAnimal = animals.getFirst();
         Class<? extends Animal> animalType = firstAnimal.getClass();
         try {
-            System.out.println("upgrade: " + newAnimals + " " + firstAnimal.getAnimalType() + " bought");
+            System.out.println("upgrade: " + newAnimals + " " + firstAnimal.getAnimalType()
+                + " bought");
             while (newAnimals > 0) {
                 Animal newAnimal = animalType.newInstance();
                 addAnimal(newAnimal);
                 newAnimals--;
             }
         } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -169,7 +168,6 @@ public class Herd implements PropertyChangeListener, Asset{
     
     /**
      * Removes asset killed by predation.
-     * @param count
      */
     public void predatorKill() {
         int killCount = hazard.Predators.wolfKill(getSize());

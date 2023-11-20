@@ -7,13 +7,15 @@ import asset.Herd;
  * A farm that owns and milks cattle. 
  * @author tfilewic
  */
-public class DairyFarm extends BasicFarm{
+public class DairyFarm extends BasicFarm {
     
-    Herd herd;
-    
+
+    /**
+     * Constuctor.
+     */
     public DairyFarm() {
         super();
-        herd = new Herd();
+        Herd herd = new Herd();
         herd.setAnimalCost(250);
         asset = herd;
         farmType = FarmType.DAIRY;

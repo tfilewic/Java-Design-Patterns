@@ -1,8 +1,12 @@
 package simulation;
+
+import farm.Farm;
+import farm.FarmFactory;
+import farm.FarmManager;
+import farm.FarmType;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import farm.*;
 
 
 /**
@@ -11,23 +15,6 @@ import farm.*;
  * @author tfilewic
  */
 public class Simulation {
-    
-    
-    //TODO delete temporary stuff
-    // Temporary attribute to set up basic testing.
-    public boolean oldMacDonaldHadAFarm = false;
-    
-    /**
-     * Temporary method to set up basic testing.
-     * Sets oldMacDonaldHadAFarm to true.
-     */
-    public void haveAFarm() {
-        oldMacDonaldHadAFarm = true;
-        System.out.println("E-I-E-I-O");
-    }
-    
-    
-    
     
     FarmManager farmManager;                //manages the farm
     private int cycle = 1;                  //the starting cycle number
@@ -42,7 +29,7 @@ public class Simulation {
     /**
      * Default constructor.
      */
-    public Simulation(){
+    public Simulation() {
 
         farmManager = new FarmManager();
         daysToArmageddon = 100;
@@ -75,8 +62,6 @@ public class Simulation {
      */
     public void simulate() {
         
-        FarmFactory factory = farmManager.getFactory();
-        
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -93,16 +78,7 @@ public class Simulation {
                 isDay = !isDay;
                 }
             }, start, interval);
-        }
-    
-    /**
-     * 
-     * @return if it is daytime in the current cycle.
-     */
-    public static boolean isDay() {
-        return isDay;
     }
-    
     
     /**
      * Prints a header for the current cycle.
@@ -129,6 +105,5 @@ public class Simulation {
         simulation.simulate();
     }
         
-
 
 }

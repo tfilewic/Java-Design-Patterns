@@ -1,15 +1,11 @@
 package hazard;
 
-import java.util.Random;
-
 /**
  * Weather functions that can destroy crops.
  * @author tfilewic
  *
  */
 public class BadWeather {
-
-    private static final Random random = new Random();
     
     /**
      * Calculates the size of crops destroyed by flooding.
@@ -18,8 +14,8 @@ public class BadWeather {
      */
     public static int flood(int cropSize) {
         int destroyedCrops = 0;
-        if (random.nextInt(30) == 7) {
-            destroyedCrops = random.nextInt(cropSize);
+        if (simulation.RandomNumber.get(30) == 7) {
+            destroyedCrops = simulation.RandomNumber.get(cropSize);
         }
         if (destroyedCrops > 0) {
             System.out.println("flooding destroyed " + destroyedCrops + "ac");

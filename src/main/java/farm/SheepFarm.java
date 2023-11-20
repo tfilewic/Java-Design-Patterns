@@ -3,10 +3,18 @@ package farm;
 import asset.Herd;
 import asset.Sheep;
 
+/**
+ * A farm that raises sheep for wool.
+ * @author tfilewic
+ *
+ */
 public class SheepFarm extends BasicFarm {
 
     Herd herd;
     
+    /**
+     * Constructor.
+     */
     public SheepFarm() {
         super();
         herd = new Herd();

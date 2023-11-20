@@ -2,7 +2,8 @@ package farm;
 
 
 /**
- * Interface to give a farm extra functionality on update, like earning extra income from supplemental operations.
+ * Interface to give a farm extra functionality on update, like earning 
+ * extra income from supplemental operations.
  * The "Decorator" class from the Decorator pattern.
  * @author tfilewic
  */
@@ -15,7 +16,7 @@ public abstract class FarmDecorator implements Farm {
      * Constructor.
      * @param farmToDecorate The farm to decorate.
      */
-    public FarmDecorator(Farm farmToDecorate){
+    public FarmDecorator(Farm farmToDecorate) {
         decoratedFarm = farmToDecorate;
     }
     

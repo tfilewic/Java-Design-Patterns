@@ -36,7 +36,7 @@ public class BasicFarmFactory implements FarmFactory {
         farm.setId(++lastId);
         farm.addPropertyChangeListener(observer);
         addFarmers(farm, new Farmer[] {new Farmer(), new Farmer(), new Farmer(), 
-                new Farmer(), new Farmer(), new Farmer()});
+            new Farmer(), new Farmer(), new Farmer()});
         return farm;
     }
     
@@ -61,7 +61,7 @@ public class BasicFarmFactory implements FarmFactory {
      */
     private BasicFarm createBasicFarm(FarmType type) {
         BasicFarm farm;
-        switch(type) {
+        switch (type) {
             case DAIRY:
                 farm = new DairyFarm();
                 break;
@@ -77,7 +77,7 @@ public class BasicFarmFactory implements FarmFactory {
             default:
                 farm = new DairyFarm();
                 break;
-            }
+        }
         return farm;
     }
     

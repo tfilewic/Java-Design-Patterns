@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
 
 /**
  * Manages farm.
@@ -18,10 +17,10 @@ public class FarmManager implements PropertyChangeListener {
     private Queue<Farmer[]> branchingFarmers;   //the groups of farmers waiting create a new farm
     private FarmFactory factory;                //factory for creating farms
     
-    /*
+    /**
      * Constructor.
      */
-    public FarmManager(){
+    public FarmManager() {
         farms = new LinkedList<Farm>();
         branchingFarmers = new LinkedList<Farmer[]>();
         factory = new BasicFarmFactory(this);
@@ -101,8 +100,7 @@ public class FarmManager implements PropertyChangeListener {
      * @param farm The farm to decorate.
      */
     private Farm addSupplementalOperations(Farm farm) {
-        Random random = new Random();
-        int n = random.nextInt(200);
+        int n = simulation.RandomNumber.get(200);
 
         if (n == 1) {
             System.out.println("Added an apiary");

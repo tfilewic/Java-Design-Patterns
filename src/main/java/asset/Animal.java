@@ -2,7 +2,6 @@ package asset;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Random;
 
 /**
  * A farm animal used for income.
@@ -18,7 +17,7 @@ public abstract class Animal {
     protected int lastProduction = 0;           //The number of cycles since the animal has produced
     
     /**
-     * Constructor
+     * Constructor.
      */
     protected Animal() {
         support = new PropertyChangeSupport(this);
@@ -62,10 +61,9 @@ public abstract class Animal {
      * @return if the asset is ready to give birth.
      */
     private boolean isPregnant() {
-        Random random = new Random();
         
         boolean correctTiming = (age > 2 && (age - 2) % 4 == 0);  
-        boolean isLucky = fertility >= random.nextInt(1, 10);
+        boolean isLucky = fertility >= simulation.RandomNumber.get(10);
         
         return (correctTiming && isLucky);  
     }

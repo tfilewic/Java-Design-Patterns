@@ -5,10 +5,10 @@ package asset;
  * @author tfilewic
  *
  */
-public class Cow extends Animal{
+public class Cow extends Animal {
     
     /**
-     * Cosntructor
+     * Cosntructor.
      */
     public Cow() {
         super();

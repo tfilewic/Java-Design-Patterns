@@ -10,7 +10,7 @@ public interface Farm {
     
     /**
      * Updates the state of the farm by half a cycle.
-     * @param isDay.  If it is daytime in the current cycle.
+     * @param isDay If it is daytime in the current cycle.
      * @return if the farm is broke.
      */
     boolean update(boolean isDay);

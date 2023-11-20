@@ -1,6 +1,5 @@
- package hazard;
+package hazard;
 
-import java.util.Random;
 
 /**
  * Predators which can kill members of a herd.
@@ -9,8 +8,6 @@ import java.util.Random;
  */
 public class Predators {
     
-    private static final Random random = new Random();
-    
     /**
      * Gets the number of asset killed by wolves.
      * @param herdSize The size of the herd.
@@ -18,13 +15,13 @@ public class Predators {
      */
     public static int wolfKill(int herdSize) {
         int killedAnimals = 0;
-        if (random.nextInt(10) < 3) {
+        if (simulation.RandomNumber.get(10) < 3) {
             if (herdSize == 0) {
                 killedAnimals = 0;
             } else if (herdSize < 4) {
-                killedAnimals = random.nextInt(herdSize);
+                killedAnimals = simulation.RandomNumber.get(herdSize);
             } else {
-                killedAnimals = random.nextInt(herdSize / 4);
+                killedAnimals = simulation.RandomNumber.get(herdSize / 4);
             }
         }
         if (killedAnimals > 0) {
