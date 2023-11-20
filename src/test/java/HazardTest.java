@@ -12,7 +12,7 @@ import hazard.Predators;
  * @author tfilewic
  *
  */
-public class hazardTest {
+public class HazardTest {
     
     /**
      * Tests that flood sometimes returns more than zero. 
