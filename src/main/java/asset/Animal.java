@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * A farm animal used for income.
+ * The "Subject" of the Observer pattern.
  * @author tfilewic
  *
  */

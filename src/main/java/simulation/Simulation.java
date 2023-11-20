@@ -1,7 +1,5 @@
 package simulation;
 
-import farm.Farm;
-import farm.FarmFactory;
 import farm.FarmManager;
 import farm.FarmType;
 
@@ -20,12 +18,11 @@ public class Simulation {
     private int cycle = 1;                  //the starting cycle number
     final int daysToArmageddon;             //number of cycles to run
     private static boolean isDay = true;    //the time of day
-    Timer timer = new Timer();              //timer to run the simulation
+    Timer timer = new Timer();              //timer to run the simulation tasks
     int start;                              //simulation start time in milliseconds
     int interval;                           //update frequency in milliseconds
     
 
-    
     /**
      * Default constructor.
      */
@@ -62,15 +59,14 @@ public class Simulation {
             public void run() {
                 displayCycle();
                 farmManager.updateFarms(isDay);
-                //advance the simulation one day
+                
                 if (!isDay) {
-                    cycle++;
+                    cycle++; //advance the simulation one cycle
                     }
                 if (cycle >= daysToArmageddon) {
                     endSimulation();
                     }
-                //advance the time 12hrs
-                isDay = !isDay;
+                isDay = !isDay; //alternate day and night
                 }
             }, start, interval);
     }

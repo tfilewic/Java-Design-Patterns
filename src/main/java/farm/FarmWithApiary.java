@@ -2,14 +2,15 @@ package farm;
 
 /**
  * A wrapped Farm with added beehive earnings.
+ * A "Concrete Decorator" in the Decorator pattern.
  * @author tfilewic
  *
  */
 public class FarmWithApiary extends FarmDecorator {
 
-    private int lastHarvest = 0;
-    private static final int frequency = 28;
-    private static final int rate = 50;
+    private int lastHarvest = 0; //days since the honey was last harvested
+    private static final int frequency = 28; //how often the honey can be harvested
+    private static final int rate = 50; //the income generated per harvest
     
     /**
      * Constructor.

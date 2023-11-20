@@ -11,12 +11,13 @@ import java.util.Queue;
 
 /**
  * A basic farm.
+ * The "Subject" of the Observer pattern.
+ * Superclass of the "Concrete Components" of the Decorator pattern. 
  * @author tfilewic
  *
  */
 public abstract class BasicFarm implements Farm {
 
-    //the farm's unique id
     protected int id = -1;
     //the type of farm
     protected FarmType farmType; 

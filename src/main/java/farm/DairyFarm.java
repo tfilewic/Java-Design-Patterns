@@ -5,6 +5,7 @@ import asset.Herd;
 
 /**
  * A farm that owns and milks cattle. 
+ * A "Concrete Product" in the Factory pattern.
  * @author tfilewic
  */
 public class DairyFarm extends BasicFarm {

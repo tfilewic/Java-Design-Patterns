@@ -4,6 +4,7 @@ import asset.Crop;
 
 /**
  * A farm that grows and sells corn.
+ * A "Concrete Product" in the Factory pattern.
  * @author tfilewic
  *
  */

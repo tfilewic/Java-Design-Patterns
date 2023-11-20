@@ -5,6 +5,7 @@ import asset.Sheep;
 
 /**
  * A farm that raises sheep for wool.
+ * A "Concrete Product" in the Factory pattern.
  * @author tfilewic
  *
  */

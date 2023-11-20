@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-
 /**
  * Manages the asset on a farm
  * The "Observer" in the Observer pattern to handle births and deaths.

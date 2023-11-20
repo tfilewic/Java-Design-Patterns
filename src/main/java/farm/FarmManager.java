@@ -7,7 +7,7 @@ import java.util.Queue;
 
 /**
  * Manages farm.
- * An "Observer" for the Observer pattern.
+ * The "Observer" for the Observer pattern.
  * @author tfilewic
  *
  */
