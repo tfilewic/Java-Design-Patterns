@@ -25,6 +25,8 @@ https://youtu.be/OPvCMagTSEw
 
 ## Patterns Used
 
+I used the gang of four book Design Patterns: Elements of Reusable Object-Oriented Software as my primary source for all patterns.  Also, I consulted https://refactoring.guru/design-patterns which I discovered in SER 315.
+
 ### Factory Method
 
 I chose this pattern because there can be a changing variety of Farm classes used in different ways, and I didn't want to have to anticipate which specific classes to create.  The Design Patterns book describes an implementation that uses a parameterized factory method, and this is what I used in the FarmFactory interface to create Farms of different FarmTypes.  This was then implemented by BasicFarmFactory for the BasicFarm subclasses.  
