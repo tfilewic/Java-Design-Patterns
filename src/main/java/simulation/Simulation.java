@@ -18,7 +18,7 @@ public class Simulation {
     
     FarmManager farmManager;                //manages the farm
     private int cycle = 1;                  //the starting cycle number
-    final int daysToArmageddon;             //total number of days to simulate
+    final int daysToArmageddon;             //number of cycles to run
     private static boolean isDay = true;    //the time of day
     Timer timer = new Timer();              //timer to run the simulation
     int start;                              //simulation start time in milliseconds
@@ -38,15 +38,10 @@ public class Simulation {
         interval = 2000;
         
         //instantiate and add initial farm
-        FarmFactory factory = farmManager.getFactory();
-        Farm newFarm = factory.createFarm(FarmType.DAIRY);
-        farmManager.addFarm(newFarm);
-        newFarm = factory.createFarm(FarmType.SHEEP);
-        farmManager.addFarm(newFarm);
-        newFarm = factory.createFarm(FarmType.WHEAT);
-        farmManager.addFarm(newFarm);
-        newFarm = factory.createFarm(FarmType.CORN);
-        farmManager.addFarm(newFarm);
+        farmManager.addNewFarm(FarmType.DAIRY);
+        farmManager.addNewFarm(FarmType.SHEEP);
+        farmManager.addNewFarm(FarmType.WHEAT);
+        farmManager.addNewFarm(FarmType.CORN);
     }
     
     /**

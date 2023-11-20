@@ -9,8 +9,8 @@ import asset.Crop;
  */
 public class WheatFarm extends BasicFarm {
 
-    final int grainPrice = 13;   //The amount earned per harvest acre 
-    final int landPrice = 100;   //The cost per acre of land
+    private static final int grainPrice = 13;   //The amount earned per harvest acre 
+    private static final int landPrice = 100;   //The cost per acre of land
     
     /**
      * Constructor.

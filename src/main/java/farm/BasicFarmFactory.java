@@ -10,16 +10,15 @@ import java.beans.PropertyChangeListener;
  */
 public class BasicFarmFactory implements FarmFactory {
     
-    static int lastId;
+    static int lastId = 0;
     PropertyChangeListener observer;
     
     
     /**
-     * Default constructor.
+     * Constructor.
      * @param observer The observer for property change events.
      */
     public BasicFarmFactory(FarmManager observer) {
-        lastId = 0;
         this.observer = observer;
     }
    
@@ -33,7 +32,7 @@ public class BasicFarmFactory implements FarmFactory {
     @Override
     public Farm createFarm(FarmType type) {
         BasicFarm farm = createBasicFarm(type);
-        farm.setId(++lastId);
+        farm.setId(getNextId());
         farm.addPropertyChangeListener(observer);
         addFarmers(farm, new Farmer[] {new Farmer(), new Farmer(), new Farmer(), 
             new Farmer(), new Farmer(), new Farmer()});
@@ -48,7 +47,7 @@ public class BasicFarmFactory implements FarmFactory {
     @Override
     public Farm createFarm(FarmType type, Farmer[] farmers) {
         BasicFarm farm = createBasicFarm(type);
-        farm.setId(++lastId);
+        farm.setId(getNextId());
         farm.addPropertyChangeListener(observer);
         addFarmers(farm, farmers);
         return farm;
@@ -96,5 +95,12 @@ public class BasicFarmFactory implements FarmFactory {
         }
     }
     
+    /**
+     * Gets the next available unique id.
+     * @return the id.
+     */
+    private static int getNextId() {
+        return ++lastId;
+    }
 
 }

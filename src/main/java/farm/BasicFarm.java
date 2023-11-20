@@ -25,7 +25,7 @@ public abstract class BasicFarm implements Farm {
     //the amount of money the farm has
     protected int accountBalance;
     //the number of farmers after which farmers leave to start a new branch
-    protected final int maxFarmers = 9;
+    protected static final int maxFarmers = 9;
     //the collection of farmers working the farm
     protected Queue<Farmer> farmers;
     //instance to support the Observer pattern
@@ -33,9 +33,9 @@ public abstract class BasicFarm implements Farm {
     //the farm's money earning asset
     protected Asset asset;                      
     //the cost of a standard upgrade
-    protected final int upgradeCost = 1000;     
+    protected static final int upgradeCost = 1000;     
     //the balance at which a farm will purchase an upgrade
-    protected final int upgradeThreshold = upgradeCost + 200;
+    protected static final int upgradeThreshold = upgradeCost + 200;
     
     
     /**

@@ -36,6 +36,15 @@ public class FarmManager implements PropertyChangeListener {
     }
     
     /**
+     * Creates and adds a new farm.
+     * @param type The type to create and add.
+     */
+    public void addNewFarm(FarmType type) {
+        Farm newFarm = factory.createFarm(type);
+        addFarm(newFarm);
+    }
+    
+    /**
      * Updates all farm by one half cycle.
      * @param isDay If it is daytime.
      */
@@ -61,7 +70,7 @@ public class FarmManager implements PropertyChangeListener {
         }
         createBranches();
     }
-
+    
     /**
      * Adds farmers to queue to open a new farm upon receiving farm is full event from Farm.
      * The Update() method from the Observer pattern.
@@ -84,15 +93,6 @@ public class FarmManager implements PropertyChangeListener {
             newFarm = factory.createFarm(FarmType.getRandom(), farmers);
             addFarm(newFarm);
         }     
-    }
-    
-    
-    /**
-     * Gets this object's FarmFactory.
-     * @return The factory.
-     */
-    public FarmFactory getFactory() {
-        return factory;
     }
     
     /**

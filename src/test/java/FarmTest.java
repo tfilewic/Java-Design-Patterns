@@ -56,15 +56,6 @@ public class FarmTest {
         assertFalse("doesn't go broke", corn.update(true));
         assertTrue("goes broke", corn.update(false));
     }
-
-    /**
-     * Tests that getFactory() returns the manager's factory.
-     */
-    @Test
-    public void managerAddsFactory() {
-        FarmManager manager = new FarmManager();
-        assertNotNull(manager.getFactory());
-    }
     
     /**
      * Tests that FarmManager can update farms without failure.
@@ -72,7 +63,7 @@ public class FarmTest {
     @Test
     public void updatesWork() {
         FarmManager manager = new FarmManager();
-        FarmFactory factory = manager.getFactory();
+        FarmFactory factory = new BasicFarmFactory(manager);
         BasicFarm[] farms = {(BasicFarm)factory.createFarm(FarmType.WHEAT), 
                 (BasicFarm)factory.createFarm(FarmType.CORN), (BasicFarm)factory.createFarm(FarmType.SHEEP), 
                 (BasicFarm)factory.createFarm(FarmType.DAIRY)};

@@ -14,7 +14,7 @@ public class Farmer {
      * Constructor.
      */
     public Farmer() {
-        id = ++lastId;
+        id = getNextId();
     }
     
     /**
@@ -23,5 +23,13 @@ public class Farmer {
      */
     public int getId() {
         return id;
+    }
+    
+    /**
+     * Gets the next available unique id.
+     * @return the id.
+     */
+    private static int getNextId() {
+        return ++lastId;
     }
 }

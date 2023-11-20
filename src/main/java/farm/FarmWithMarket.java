@@ -7,9 +7,9 @@ package farm;
  */
 public class FarmWithMarket extends FarmDecorator {
 
-    int lastMarket = 0;
-    final int frequency = 7;
-    final int sales = 35;
+    private int lastMarket = 0;
+    private static final int frequency = 7;
+    private static final int sales = 35;
     
     public FarmWithMarket(Farm farmToDecorate) {
         super(farmToDecorate);

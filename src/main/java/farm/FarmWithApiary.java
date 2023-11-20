@@ -7,9 +7,9 @@ package farm;
  */
 public class FarmWithApiary extends FarmDecorator {
 
-    int lastHarvest = 0;
-    final int frequency = 28;
-    final int rate = 50;
+    private int lastHarvest = 0;
+    private static final int frequency = 28;
+    private static final int rate = 50;
     
     /**
      * Constructor.
