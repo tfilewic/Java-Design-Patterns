@@ -1,5 +1,5 @@
 # Java Design Patterns
-This project was a single-week coursework assignment to demonstrate object-oriented design patterns in a single Java application.
+This project was a single-week coursework assignment to demonstrate object-oriented design patterns in a Java application.
 It includes unit testing, static analysis tools, and a continuous integration workflow using GitHub Actions.
 
 ## Technologies Used
