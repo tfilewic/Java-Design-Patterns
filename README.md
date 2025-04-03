@@ -9,6 +9,7 @@ It includes unit testing and static analysis tools to emphasize clean, testable 
 - **Checkstyle**: Static code analysis tool to enforce style and formatting.
 - **SpotBugs**: Static analysis to detect potential runtime bugs and code quality issues.
 - **Gradle**: Build automation tool.
+- **GitHub Actions**: Continuous integration through an automated Gradle workflow for building and testing the project.
 
 
 
